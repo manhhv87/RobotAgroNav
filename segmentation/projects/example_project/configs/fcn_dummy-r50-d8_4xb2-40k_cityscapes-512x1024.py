@@ -1,6 +1,8 @@
-# Copyright (c) OpenMMLab. All rights reserved.
-_base_ = ['../../../configs/fcn/fcn_r50-d8_512x1024_40k_cityscapes.py']
+_base_ = ['mmseg::fcn/fcn_r50-d8_4xb2-40k_cityscapes-512x1024.py']
 
-custom_imports = dict(imports=['projects.example_project.dummy'])
+custom_imports = dict(imports=['dummy'])
 
-model = dict(backbone=dict(type='DummyResNet'))
+crop_size = (512, 1024)
+data_preprocessor = dict(size=crop_size)
+model = dict(
+    data_preprocessor=data_preprocessor, backbone=dict(type='DummyResNet'))

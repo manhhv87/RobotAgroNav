@@ -1,7 +1,18 @@
 norm_cfg = dict(type='SyncBN', requires_grad=True)
+
+data_preprocessor = dict(
+    type='SegDataPreProcessor',
+    mean=[123.675, 116.28, 103.53],
+    std=[58.395, 57.12, 57.375],
+    bgr_to_rgb=True,
+    pad_val=0,
+    seg_pad_val=255)
+
 model = dict(
     type='EncoderDecoder',
+    data_preprocessor=data_preprocessor,
     pretrained=None,
+
     backbone=dict(
         type='BEiT',
         img_size=(640, 640),
@@ -19,7 +30,12 @@ model = dict(
         act_cfg=dict(type='GELU'),
         norm_eval=False,
         init_values=0.1),
-    neck=dict(type='Feature2Pyramid', embed_dim=768, rescales=[4, 2, 1, 0.5]),
+
+    neck=dict(
+        type='Feature2Pyramid',
+        embed_dim=768,
+        rescales=[4, 2, 1, 0.5]),
+
     decode_head=dict(
         type='UPerHead',
         in_channels=[768, 768, 768, 768],
@@ -32,6 +48,7 @@ model = dict(
         align_corners=False,
         loss_decode=dict(
             type='CrossEntropyLoss', use_sigmoid=False, loss_weight=1.0)),
+
     auxiliary_head=dict(
         type='FCNHead',
         in_channels=768,
@@ -45,6 +62,7 @@ model = dict(
         align_corners=False,
         loss_decode=dict(
             type='CrossEntropyLoss', use_sigmoid=False, loss_weight=0.4)),
+
     # model training and testing settings
     train_cfg=dict(),
     test_cfg=dict(mode='whole'))

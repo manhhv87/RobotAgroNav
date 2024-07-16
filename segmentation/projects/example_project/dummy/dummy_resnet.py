@@ -1,9 +1,8 @@
-# Copyright (c) OpenMMLab. All rights reserved.
-from mmseg.models import BACKBONES
 from mmseg.models.backbones import ResNetV1c
+from mmseg.registry import MODELS
 
 
-@BACKBONES.register_module()
+@MODELS.register_module()
 class DummyResNet(ResNetV1c):
     """Implements a dummy ResNet wrapper for demonstration purpose.
     Args:

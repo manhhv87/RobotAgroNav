@@ -4,6 +4,7 @@ from .apc_head import APCHead
 from .aspp_head import ASPPHead
 from .cc_head import CCHead
 from .da_head import DAHead
+from .ddr_head import DDRHead
 from .dm_head import DMHead
 from .dnl_head import DNLHead
 from .dpt_head import DPTHead
@@ -12,14 +13,19 @@ from .enc_head import EncHead
 from .fcn_head import FCNHead
 from .fpn_head import FPNHead
 from .gc_head import GCHead
+from .ham_head import LightHamHead
 from .isa_head import ISAHead
 from .knet_head import IterativeDecodeHead, KernelUpdateHead, KernelUpdator
 from .lraspp_head import LRASPPHead
+from .mask2former_head import Mask2FormerHead
+from .maskformer_head import MaskFormerHead
 from .nl_head import NLHead
 from .ocr_head import OCRHead
+from .pid_head import PIDHead
 from .point_head import PointHead
 from .psa_head import PSAHead
 from .psp_head import PSPHead
+from .san_head import SideAdapterCLIPHead
 from .segformer_head import SegformerHead
 from .segmenter_mask_head import SegmenterMaskTransformerHead
 from .sep_aspp_head import DepthwiseSeparableASPPHead
@@ -28,6 +34,22 @@ from .setr_mla_head import SETRMLAHead
 from .setr_up_head import SETRUPHead
 from .stdc_head import STDCHead
 from .uper_head import UPerHead
+from .vpd_depth_head import VPDDepthHead
+from .unetformer_head import UnetformerHead
+from .floodnet_head import UnetfloodnetHead
+from .general_head import GeneralHead
+from .a2fpn_head import A2FPN
+from .my_fcn_head import myFCNHead
+from .cls_head import ClsHead
+from .manet_head import MANET
+from .dbunet_head import DBUNetHead
+from .dcswin_head import DCSwinHead
+from .linear_cls import LinearHead
+
+# Generative Semantic Segmentation Heads
+# from .generative_segmentation_head_ff import GenerativeSegHeadFF
+# from .generative_segmentation_head_ftw import GenerativeSegHeadFTW
+# from .generative_segmentation_head_ff_single_fusion import GenerativeSegHeadFFSingleFusion
 
 __all__ = [
     'FCNHead', 'PSPHead', 'ASPPHead', 'PSAHead', 'NLHead', 'GCHead', 'CCHead',
@@ -36,5 +58,13 @@ __all__ = [
     'PointHead', 'APCHead', 'DMHead', 'LRASPPHead', 'SETRUPHead',
     'SETRMLAHead', 'DPTHead', 'SETRMLAHead', 'SegmenterMaskTransformerHead',
     'SegformerHead', 'ISAHead', 'STDCHead', 'IterativeDecodeHead',
-    'KernelUpdateHead', 'KernelUpdator'
+    'KernelUpdateHead', 'KernelUpdator', 'MaskFormerHead', 'Mask2FormerHead',
+    'LightHamHead', 'PIDHead', 'DDRHead', 'VPDDepthHead', 'SideAdapterCLIPHead',
+    'UnetformerHead', 'UnetfloodnetHead', 'GeneralHead', 'A2FPN', 'myFCNHead',
+    'ClsHead', 'MANET', 'DBUNetHead', 'DCSwinHead', 'LinearHead', 
+
+    # Generative Semantic Segmentation Heads
+    # 'GenerativeSegHeadFF',
+    # 'GenerativeSegHeadFFSingleFusion',
+    # 'GenerativeSegHeadFTW',
 ]

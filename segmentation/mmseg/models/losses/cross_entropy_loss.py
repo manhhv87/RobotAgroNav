@@ -5,7 +5,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-from ..builder import LOSSES
+from mmseg.registry import MODELS
 from .utils import get_class_weight, weight_reduce_loss
 
 
@@ -53,8 +53,22 @@ def cross_entropy(pred,
     # average loss over non-ignored elements
     # pytorch's official cross_entropy average loss over non-ignored elements
     # refer to https://github.com/pytorch/pytorch/blob/56b43f4fec1f76953f15a627694d4bba34588969/torch/nn/functional.py#L2660  # noqa
-    if (avg_factor is None) and avg_non_ignore and reduction == 'mean':
-        avg_factor = label.numel() - (label == ignore_index).sum().item()
+    if (avg_factor is None) and reduction == 'mean':
+        if class_weight is None:
+            if avg_non_ignore:
+                avg_factor = label.numel() - (label
+                                              == ignore_index).sum().item()
+            else:
+                avg_factor = label.numel()
+
+        else:
+            # the average factor should take the class weights into account
+            label_weights = torch.tensor([class_weight[cls] for cls in label],
+                                         device=class_weight.device)
+            if avg_non_ignore:
+                label_weights[label == ignore_index] = 0
+            avg_factor = label_weights.sum()
+
     if weight is not None:
         weight = weight.float()
     loss = weight_reduce_loss(
@@ -193,13 +207,13 @@ def mask_cross_entropy(pred,
         pred_slice, target, weight=class_weight, reduction='mean')[None]
 
 
-@LOSSES.register_module()
+@MODELS.register_module()
 class CrossEntropyLoss(nn.Module):
     """CrossEntropyLoss.
 
     Args:
         use_sigmoid (bool, optional): Whether the prediction uses sigmoid
-            instead of softmax. Defaults to False.
+            of softmax. Defaults to False.
         use_mask (bool, optional): Whether to use mask cross entropy loss.
             Defaults to False.
         reduction (str, optional): . Defaults to 'mean'.
@@ -223,7 +237,7 @@ class CrossEntropyLoss(nn.Module):
                  loss_weight=1.0,
                  loss_name='loss_ce',
                  avg_non_ignore=False):
-        super(CrossEntropyLoss, self).__init__()
+        super().__init__()
         assert (use_sigmoid is False) or (use_mask is False)
         self.use_sigmoid = use_sigmoid
         self.use_mask = use_mask
