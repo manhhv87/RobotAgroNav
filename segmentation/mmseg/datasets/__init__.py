@@ -40,6 +40,7 @@ from .transforms import (CLAHE, AdjustGamma, Albu, BioMedical3DPad,
                          SegRescale)
 from .voc import PascalVOCDataset
 from .floodnet import FloodNetDataset
+from .crldl import CropRowDataset
 
 # yapf: enable
 __all__ = [
@@ -61,5 +62,5 @@ __all__ = [
     'MapillaryDataset_v2', 'Albu', 'LEVIRCDDataset',
     'LoadMultipleRSImageFromFile', 'LoadSingleRSImageFromFile',
     'ConcatCDInput', 'BaseCDDataset', 'DSDLSegDataset', 'BDD100KDataset',
-    'NYUDataset', 'FloodNetDataset'
+    'NYUDataset', 'FloodNetDataset', 'CropRowDataset'
 ]
