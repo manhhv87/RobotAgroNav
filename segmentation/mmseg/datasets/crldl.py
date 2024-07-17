@@ -18,8 +18,8 @@ class CropRowDataset(BaseSegDataset):
     '.png'.
     """
     METAINFO = dict(
-        classes=("crop", "background"),
-        palette = [[1], [0]])
+        classes=("background", "crop"),
+        palette = [[0, 0, 0], [255, 0, 0]])
 
     def __init__(self, **kwargs) -> None:
         super().__init__(
