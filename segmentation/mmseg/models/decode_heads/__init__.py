@@ -35,21 +35,6 @@ from .setr_up_head import SETRUPHead
 from .stdc_head import STDCHead
 from .uper_head import UPerHead
 from .vpd_depth_head import VPDDepthHead
-from .unetformer_head import UnetformerHead
-from .floodnet_head import UnetfloodnetHead
-from .general_head import GeneralHead
-from .a2fpn_head import A2FPN
-from .my_fcn_head import myFCNHead
-from .cls_head import ClsHead
-from .manet_head import MANET
-from .dbunet_head import DBUNetHead
-from .dcswin_head import DCSwinHead
-from .linear_cls import LinearHead
-
-# Generative Semantic Segmentation Heads
-# from .generative_segmentation_head_ff import GenerativeSegHeadFF
-# from .generative_segmentation_head_ftw import GenerativeSegHeadFTW
-# from .generative_segmentation_head_ff_single_fusion import GenerativeSegHeadFFSingleFusion
 
 __all__ = [
     'FCNHead', 'PSPHead', 'ASPPHead', 'PSAHead', 'NLHead', 'GCHead', 'CCHead',
@@ -59,12 +44,5 @@ __all__ = [
     'SETRMLAHead', 'DPTHead', 'SETRMLAHead', 'SegmenterMaskTransformerHead',
     'SegformerHead', 'ISAHead', 'STDCHead', 'IterativeDecodeHead',
     'KernelUpdateHead', 'KernelUpdator', 'MaskFormerHead', 'Mask2FormerHead',
-    'LightHamHead', 'PIDHead', 'DDRHead', 'VPDDepthHead', 'SideAdapterCLIPHead',
-    'UnetformerHead', 'UnetfloodnetHead', 'GeneralHead', 'A2FPN', 'myFCNHead',
-    'ClsHead', 'MANET', 'DBUNetHead', 'DCSwinHead', 'LinearHead', 
-
-    # Generative Semantic Segmentation Heads
-    # 'GenerativeSegHeadFF',
-    # 'GenerativeSegHeadFFSingleFusion',
-    # 'GenerativeSegHeadFTW',
+    'LightHamHead', 'PIDHead', 'DDRHead', 'VPDDepthHead', 'SideAdapterCLIPHead'
 ]

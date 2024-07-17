@@ -3,8 +3,7 @@ cityscapesscripts
 
 # for vpd model
 diffusers
-# einops==0.3.0
-einops
+einops==0.3.0
 imageio==2.9.0
 imageio-ffmpeg==0.4.2
 invisible-watermark

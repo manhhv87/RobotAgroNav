@@ -11,8 +11,8 @@ from mmengine.runner import Runner
 def parse_args():
     parser = argparse.ArgumentParser(
         description='MMSeg test (and eval) a model')
-    parser.add_argument('--config', help='train config file path')
-    parser.add_argument('--checkpoint', help='checkpoint file')
+    parser.add_argument('config', help='train config file path')
+    parser.add_argument('checkpoint', help='checkpoint file')
     parser.add_argument(
         '--work-dir',
         help=('if specified, the evaluation metric results will be dumped'

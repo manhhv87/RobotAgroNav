@@ -44,8 +44,13 @@ def init_model(config: Union[str, Path, Config],
                         'but got {}'.format(type(config)))
     if cfg_options is not None:
         config.merge_from_dict(cfg_options)
-    elif 'init_cfg' in config.model.backbone:
-        config.model.backbone.init_cfg = None
+    if config.model.type == 'EncoderDecoder':
+        if 'init_cfg' in config.model.backbone:
+            config.model.backbone.init_cfg = None
+    elif config.model.type == 'MultimodalEncoderDecoder':
+        for k, v in config.model.items():
+            if isinstance(v, dict) and 'init_cfg' in v:
+                config.model[k].init_cfg = None
     config.model.pretrained = None
     config.model.train_cfg = None
     init_default_scope(config.get('default_scope', 'mmseg'))
@@ -122,7 +127,7 @@ def show_result_pyplot(model: BaseSegmentor,
                        draw_pred: bool = True,
                        wait_time: float = 0,
                        show: bool = True,
-                       withLabels: Optional[bool] = True,
+                       with_labels: Optional[bool] = True,
                        save_dir=None,
                        out_file=None):
     """Visualize the segmentation results on the image.
@@ -142,7 +147,7 @@ def show_result_pyplot(model: BaseSegmentor,
             that means "forever". Defaults to 0.
         show (bool): Whether to display the drawn image.
             Default to True.
-        withLabels(bool, optional): Add semantic labels in visualization
+        with_labels(bool, optional): Add semantic labels in visualization
             result, Default to True.
         save_dir (str, optional): Save file dir for all storage backends.
             If it is None, the backend storage will not save any data.
@@ -178,7 +183,7 @@ def show_result_pyplot(model: BaseSegmentor,
         wait_time=wait_time,
         out_file=out_file,
         show=show,
-        withLabels=withLabels)
+        with_labels=with_labels)
     vis_img = visualizer.get_image()
 
     return vis_img

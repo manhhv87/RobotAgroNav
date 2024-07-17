@@ -8,7 +8,9 @@ crop_size = (512, 512)
 
 train_pipeline = [
     dict(type='LoadImageFromFile'),
+    dict(type='ConvertTo8Bit'),
     dict(type='LoadAnnotations', reduce_zero_label=False),
+    dict(type='ConvertToGrayScaleMask'),
     dict(
         type='RandomResize',
         scale=train_img_scale,
@@ -17,7 +19,7 @@ train_pipeline = [
     dict(type='RandomCrop', crop_size=crop_size, cat_max_ratio=0.75),
     dict(type='RandomFlip', prob=0.5),
     dict(type='PhotoMetricDistortion'),
-    dict(type='PackSegInputs')
+    dict(type='PackSegInputs'),    
 ]
 
 val_pipeline = [
@@ -26,7 +28,8 @@ val_pipeline = [
     # add loading annotation after ``Resize`` because ground truth
     # does not need to do resize data transform
     dict(type='LoadAnnotations', reduce_zero_label=False),
-    dict(type='PackSegInputs')
+    dict(type='ConvertToGrayScaleMask'),
+    dict(type='PackSegInputs'),    
 ]
 
 test_pipeline = [
@@ -35,7 +38,8 @@ test_pipeline = [
     # add loading annotation after ``Resize`` because ground truth
     # does not need to do resize data transform
     dict(type='LoadAnnotations', reduce_zero_label=False),
-    dict(type='PackSegInputs')
+    dict(type='PackSegInputs'),
+    dict(type='ConvertToGrayScaleMask')
 ]
 
 img_ratios = [0.5, 0.75, 1.0, 1.25, 1.5, 1.75]
@@ -57,7 +61,7 @@ tta_pipeline = [
 
 train_dataloader = dict(
     batch_size=2,
-    num_workers=2,
+    num_workers=1,
     persistent_workers=True,
     sampler=dict(type='InfiniteSampler', shuffle=True),
     dataset=dict(
@@ -69,7 +73,7 @@ train_dataloader = dict(
 
 val_dataloader = dict(
     batch_size=1,
-    num_workers=2,
+    num_workers=1,
     persistent_workers=True,
     sampler=dict(type='DefaultSampler', shuffle=False),
     dataset=dict(
@@ -82,7 +86,7 @@ val_dataloader = dict(
 
 test_dataloader = dict(
     batch_size=1,
-    num_workers=2,
+    num_workers=1,
     persistent_workers=True,
     sampler=dict(type='DefaultSampler', shuffle=False),
     dataset=dict(
