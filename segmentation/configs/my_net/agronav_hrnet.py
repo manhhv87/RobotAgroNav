@@ -16,12 +16,12 @@ model = dict(
                 type='CrossEntropyLoss',
                 loss_name='loss_ce',
                 use_sigmoid=True,
-                loss_weight=1.0,
+                loss_weight=0.3,
                 avg_non_ignore=False),
             dict(
                 type='DiceLoss', 
                 loss_name='loss_dice', 
-                loss_weight=1.0)]))
+                loss_weight=0.7)]))
 
 optim_wrapper = dict(
     _delete_=True,
